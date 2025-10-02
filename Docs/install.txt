@@ -1,0 +1,256 @@
+nainstalovat node.js
+
+https://nodejs.org/en/download
+stáhnout prebuild Node.js for Linux running x64 architecture binary (.xz)
+
+sudo tar -xvf node-v22.19.0-linux-x64.tar.xz
+sudo apt purge nodejs
+sudo cp -r node-v22.19.0-linux-x64/{bin,include,lib,share} /usr/
+export PATH=/usr/node-v22.19.0-linux-x64/bin:$PATH
+node --version
+
+ng serve //build a spusteni lokalne
+
+Housing URL
+https://stackblitz.com/edit/pyb4g2-we9bvk?file=src%2Fapp%2Fapp.component.ts
+martin@DESKTOP-VAV05OM:~/c/angular_proj/first-app$ ng serve
+Initial chunk files | Names         |  Raw size
+main.js             | main          |   4.62 kB |
+styles.css          | styles        | 457 bytes |
+polyfills.js        | polyfills     |  95 bytes |
+
+                    | Initial total |   5.18 kB
+
+Application bundle generation complete. [12.443 seconds]
+
+Watch mode enabled. Watching for file changes...
+NOTE: Raw file sizes do not reflect development server per-request transformations.
+  ➜  Local:   http://localhost:4200/
+  ➜  press h + enter to show help
+
+ng generate component home
+
+ng generate component housingLocation
+
+//oddeleni dat a manipulace do service
+ng generate service housing --skip-tests
+
+//routing
+ng generate component details
+
+//testovací JSON server - frontend posílá dotazy na server, ktery cte z DB
+sudo npm install -g json-server
+
+db.json - obsahuje data v JSON
+
+musi byt spusteny server, aplikace ho neobsluhuje
+json-server db.json
+
+Index:
+http://localhost:3000/
+
+Static files:
+Serving ./public directory if it exists
+
+Endpoints:
+http://localhost:3000/locations
+
+//************************************
+//11.9. backend node.js express pro Angular test mssql
+//prejmenovano na angular-BE
+martin@DESKTOP-VAV05OM:~/c/angular_proj/mssql_app$
+martin@DESKTOP-VAV05OM:~/c/angular_proj/mssql_app$ npm init                                                       [6/19]This utility will walk you through creating a package.json file.
+It only covers the most common items, and tries to guess sensible defaults.
+
+See `npm help init` for definitive documentation on these fields
+and exactly what they do.
+                                                                                                                        Use `npm install <pkg>` afterwards to install a package and
+save it as a dependency in the package.json file.
+
+Press ^C at any time to quit.
+package name: (mssql_app)
+version: (1.0.0)
+description: Node.js Rest Apis with Express, Sequelize & MSSQL
+entry point: (index.js) server.js
+test command:
+git repository:
+keywords: nodejs, express, sequelize, mssql, rest, api
+author:
+license: (ISC)
+About to write to /home/martin/c/angular_proj/mssql_app/package.json:
+
+{
+  "name": "mssql_app",
+  "version": "1.0.0",
+  "description": "Node.js Rest Apis with Express, Sequelize & MSSQL",
+  "main": "server.js",
+  "scripts": {                                                                                                              "test": "echo \"Error: no test specified\" && exit 1"                                                                 },
+  "keywords": [
+    "nodejs",                                                                                                               "express",
+    "sequelize",
+    "mssql",
+    "rest",
+    "api"
+  ],
+  "author": "",
+  "license": "ISC"
+}
+
+
+Is this OK? (yes)
+
+npm notice
+npm notice New major version of npm available! 10.9.3 -> 11.6.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.6.0
+npm notice To update run: npm install -g npm@11.6.0
+npm notice
+
+martin@DESKTOP-VAV05OM:~/c/angular_proj/mssql_app$ npm install express sequelize mssql cors --save
+
+added 154 packages, and audited 155 packages in 50s
+
+30 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+//pouziti SqLite pro test
+https://sequelize.org/docs/v7/databases/sqlite/
+instalovat sqlite dialect package:
+npm i @sequelize/sqlite3
+
+pouzit dialect v konfiguraci
+import { Sequelize } from '@sequelize/core';
+import { SqliteDialect } from '@sequelize/sqlite3';
+
+const sequelize = new Sequelize({
+  dialect: SqliteDialect,
+  storage: 'sequelize.sqlite',
+});
+
+Option		Description
+storage		Path to the SQLite database file.
+mode		An integer bit flag that represents the mode to open the database connection with.
+
+		The mode can be a union (using |) of OPEN_READONLY, OPEN_READWRITE, OPEN_CREATE, OPEN_FULLMUTEX, OPEN_URI, OPEN_SHAREDCACHE, OPEN_PRIVATECACHE, each of which are 			exposed by @sequelize/sqlite.
+		Refer to the SQLite documentation to learn what each of these flags do.
+password	The "PRAGMA KEY" password to use for the connection, if using plugins like sqlcipher.
+
+
+//spustit
+node server.js
+
+//vypis stromu bez adresare node_* a Docs
+tree -L 3 -I node_* -I Docs --matchdirs
+
+//Frontend Angular app
+
+Using ng serve --host 0.0.0.0 will allow you to connect to the ng serve using your ip instead of localhost.
+In newer versions of the cli, you have to provide your local ip address instead
+
+ng new angular-FE
+
+✔ Which stylesheet format would you like to use? CSS             [ https://developer.mozilla.org/docs/Web/CSS                     ]
+✔ Do you want to enable Server-Side Rendering (SSR) and Static Site Generation (SSG/Prerendering)? No
+✔ Do you want to create a 'zoneless' application without zone.js? No
+✔ Which AI tools do you want to configure with Angular best practices? https://angular.dev/ai/develop-with-ai None
+
+cd angular-FE
+//We also need to generate some Components and Services:
+vytvorim jen list
+ng g s services/pnastat
+
+#ng g c components/add-tutorial
+#ng g c components/tutorial-details
+ng g c components/pnastat-list
+
+ng g class models/pnastat --type=model
+
+
+martin@DESKTOP-VAV05OM:~/c/angular_proj$ cd angular-FE/
+martin@DESKTOP-VAV05OM:~/c/angular_proj/angular-FE$ ng g s services/pnastat
+CREATE src/app/services/pnastat.spec.ts (326 bytes)
+CREATE src/app/services/pnastat.ts (111 bytes)
+martin@DESKTOP-VAV05OM:~/c/angular_proj/angular-FE$ ng g c components/pnastat-list
+CREATE src/app/components/pnastat-list/pnastat-list.css (0 bytes)
+CREATE src/app/components/pnastat-list/pnastat-list.spec.ts (564 bytes)
+CREATE src/app/components/pnastat-list/pnastat-list.ts (208 bytes)
+CREATE src/app/components/pnastat-list/pnastat-list.html (27 bytes)
+martin@DESKTOP-VAV05OM:~/c/angular_proj/angular-FE$ ng g class models/pnastat --type=model
+A merge conflicted on path "/src/app/models/pnastat.model.ts".
+martin@DESKTOP-VAV05OM:~/c/angular_proj/angular-FE$ ng g class models/pnastat --type=model
+CREATE src/app/models/pnastat.model.spec.ts (163 bytes)
+CREATE src/app/models/pnastat.model.ts (25 bytes)
+
+
+app/app.module.ts
+app/app-routing.module.ts
+app/models/pnastat.model.ts
+services/pnastat.service.ts
+
+api/pnastat
+
+nenalezen platform-browser-dynamic, stazeny a vlozeny do node_modules/@angular/platform-browser-dynamic
+
+//integrace FE-BE
+//v Angular FE
+Open angular.json, add the "outputPath": "./static" option to the build target so that the production will be stored in static folder under project root directory.
+
+"architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "./static",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            ...
+          },
+
+ng build
+
+//BE
+In app folder of Node.js Express Project, let’s create VIEWS folder and copy content from folder STATIC to it.
+
+We’re gonna serve static files such as HTML files, CSS files and JavaScript files in app/views folder using the express.static() built-in middleware function.
+//pridat do server.js:
+
+const express = require("express");
+
+const path = __dirname + '/app/views/';
+const app = express();
+
+app.use(express.static(path));
+
+The final step is to deliver index.html file using res.sendFile(). We will need to pass in a path to the file.
+
+// const path = __dirname + '/app/views/';
+
+app.get('/', function (req,res) {
+  res.sendFile(path + "index.html");
+});
+
+node server.js
+
+Open browser with url: http://localhost:8080/
+
+https://github.com/bezkoder/angular-12-node-js-project/tree/master
+
+npm install bootstrap@4.6.2.
+
+Next, open src/style.css and add following code:
+
+@import "~bootstrap/dist/css/bootstrap.css";
+
+//29.9.25 Angular FE
+nová komponenta pnastat-list,pnastat-details 
+je potřeba vždy přidat do app.module.ts a app-routing.module.ts
+a doplnit do @Component parametr "standalone: false,"
+
+pro globální CSS je třeba přidat do angular.json
+ "styles": [
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "src/styles.css"
+            ]
+
+
+
