@@ -21,7 +21,7 @@ app.use(cors(corsOptions));
 // parse requests of content-type - application/json
 app.use(express.json());
 //+FE
-//app.use(bodyParser.json); //toto nefunguje
+//app.use(bodyParser.json()); //toto nefunguje -doplneny zavorky json(),vyzkouset
 
 // parse requests of content-type - application/x-www-form-urlencoded
 //app.use(express.urlencoded({ extended: true }));
@@ -62,3 +62,4 @@ const PORT = process.env.PORT || 8080;
 app.listen(PORT, '0.0.0.0',() => {
   console.log(`Server is running on port ${PORT}.`);
 });
+
